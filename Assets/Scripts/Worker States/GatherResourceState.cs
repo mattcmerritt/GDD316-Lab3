@@ -14,7 +14,7 @@ public class GatherResourceState : AgentState
 
     public override void ActivateState(Agent agent)
     {
-        Debug.Log("Started to gather from " + Resource.gameObject.name);
+        Debug.Log("WORKER: Started to gather from " + Resource.gameObject.name);
         agent.StartCoroutine(CollectResource(agent));
     }
 

@@ -13,7 +13,7 @@ public class WalkToResourceState : AgentState
 
     public override void ActivateState(Agent agent)
     {
-        Debug.Log("Started to walk towards " + Resource.gameObject.name);
+        Debug.Log("WORKER: Started to walk towards " + Resource.gameObject.name);
         agent.GetNavAgent().SetDestination(Resource.transform.position);
     }
 
