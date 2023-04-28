@@ -33,7 +33,13 @@ public class GuardPatrolState : AgentState
 
     public override void OnTriggerEnter(Agent agent, Collider other)
     {
-        // not implemented
+        /*
+        // If a worker walks by, follow them
+        if (other.gameObject.tag == "Worker")
+        {
+
+        }
+        */
     }
 
     public IEnumerator WaitAtEndpoint(Agent agent)
