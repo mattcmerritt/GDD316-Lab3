@@ -5,6 +5,7 @@ GitHub Repository: https://github.com/mattcmerritt/GDD316-Lab3
 
 # Controls
 WASD to move the camera
+Buttons on screen to change resource target
 
 # Purpose
 The goal is to keep your workers safe, while still gathering as many resources as possible. The only control that the player has over the agents is that the player can set the resource target, which will cause the workers to leave home and gather resources.

@@ -28,6 +28,12 @@ public class GuardFightEnemyState : AgentState
 
     public override void Update(Agent agent)
     {
+        // if enemy gets taken out, patrol again
+        if (!Enemy.GetIsAlive())
+        {
+            agent.ChangeState(new GuardPatrolState());
+        }
+
         // If not close to guard, close the distance
         if (Vector3.Magnitude(Enemy.transform.position - agent.transform.position) >= MinAttackDistance)
         {

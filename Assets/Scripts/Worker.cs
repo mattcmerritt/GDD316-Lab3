@@ -12,16 +12,14 @@ public class Worker : Agent
     // Visual representation of inventory
     [SerializeField] private List<GameObject> LogsCollected;
 
-    // Start by picking the closest tree, and gathering from there
+    // Start by idling
     private void Start()
     {
-        // Create the new state and assign it to this worker
-        ResourceSource closest = FindClosestResource();
-        WalkToResourceState walkToTree = new WalkToResourceState(closest);
-        ChangeState(walkToTree);
-
         // Save the starting location as a home position
         HomePosition = transform.position;
+
+        // Create new idle state
+        ChangeState(new WorkerIdleState());
     }
 
     // Helper method to find the closest tree
