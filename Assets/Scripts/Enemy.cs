@@ -6,12 +6,20 @@ public class Enemy : Agent
 {
     [SerializeField] private float MapBounds;
     [SerializeField] private Animator Animator;
-    [SerializeField] private int Health = 5;
+    [SerializeField] private int MaximumHealth = 5, Health = 5;
     [SerializeField] private bool IsAlive = true;
+    [SerializeField] private Vector3 StartLocation;
 
     // Start by roaming
     private void Start()
     {
+        StartLocation = transform.position;
+        ChangeState(new EnemyRoamState());
+    }
+
+    public void Reset()
+    {
+        transform.position = StartLocation;
         ChangeState(new EnemyRoamState());
     }
 

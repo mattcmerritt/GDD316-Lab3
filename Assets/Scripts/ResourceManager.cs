@@ -23,12 +23,12 @@ public class ResourceManager : MonoBehaviour
     public void IncrementResourceGoal()
     {
         ResourceGoal += 5;
-        Collected.text = "" + ResourceGoal;
+        Target.text = "" + ResourceGoal;
     }
 
     public void DeccrementResourceGoal()
     {
         ResourceGoal -= 5;
-        Collected.text = "" + ResourceGoal;
+        Target.text = "" + ResourceGoal;
     }
 }
