@@ -5,28 +5,18 @@ using UnityEngine;
 public class Worker : Agent
 {
     [SerializeField] private int HeldResources = 0, ResourceCapacity = 5;
-    [SerializeField] private Vector3 HomePosition = Vector3.zero;
+    [SerializeField] private Vector3 HomePosition;
 
     // Start by picking the closest tree, and gathering from there
     private void Start()
     {
-        // Find the closest tree
-        ResourceSource[] trees = FindObjectsOfType<ResourceSource>();
-        float distanceToClosest = Mathf.Infinity;
-        ResourceSource closest = null;
-        foreach (ResourceSource tree in trees)
-        {
-            float distanceToTree = Vector3.Magnitude(tree.transform.position - transform.position);
-            if (distanceToTree <= distanceToClosest)
-            {
-                closest = tree;
-                distanceToClosest = distanceToTree;
-            }
-        }
-
         // Create the new state and assign it to this worker
+        ResourceSource closest = FindClosestResource();
         WalkToResourceState walkToTree = new WalkToResourceState(closest);
         ChangeState(walkToTree);
+
+        // Save the starting location as a home position
+        HomePosition = transform.position;
     }
 
     // Delegate this task to the current state
@@ -45,6 +35,26 @@ public class Worker : Agent
         {
             ActiveState.OnTriggerEnter(this, other);
         }
+    }
+
+    // Helper method to find the closest tree
+    public ResourceSource FindClosestResource()
+    {
+        // Find the closest tree
+        ResourceSource[] trees = FindObjectsOfType<ResourceSource>();
+        float distanceToClosest = Mathf.Infinity;
+        ResourceSource closest = null;
+        foreach (ResourceSource tree in trees)
+        {
+            float distanceToTree = Vector3.Magnitude(tree.transform.position - transform.position);
+            if (distanceToTree <= distanceToClosest)
+            {
+                closest = tree;
+                distanceToClosest = distanceToTree;
+            }
+        }
+
+        return closest;
     }
 
     // Helper method to check if the worker can pick up more
