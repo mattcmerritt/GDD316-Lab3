@@ -33,6 +33,11 @@ public class GatherResourceState : AgentState
         // not implemented
     }
 
+    public override void EndState(Agent agent)
+    {
+        // Nothing additional to do
+    }
+
     public IEnumerator CollectResource(Agent agent)
     {
         Worker worker = ((Worker)agent);

@@ -6,6 +6,7 @@ public class Worker : Agent
 {
     [SerializeField] private int HeldResources = 0, ResourceCapacity = 5;
     [SerializeField] private Vector3 HomePosition;
+    [SerializeField] private bool IsGuarded = false;
 
     // Visual representation of inventory
     [SerializeField] private List<GameObject> LogsCollected;
@@ -98,5 +99,23 @@ public class Worker : Agent
     public Vector3 GetHomePosition()
     {
         return HomePosition;
+    }
+
+    // Helper method for guarding and preventing too many guards from following one worker
+    public void StartGuarding()
+    {
+        IsGuarded = true;
+    }
+
+    // Helper method for guarding and preventing too many guards from following one worker
+    public void StopGuarding()
+    {
+        IsGuarded = false;
+    }
+
+    // Helper method for guarding and preventing too many guards from following one worker
+    public bool CheckIfGuarded()
+    {
+        return IsGuarded;
     }
 }

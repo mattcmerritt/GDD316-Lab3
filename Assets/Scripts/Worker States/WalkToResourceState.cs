@@ -35,4 +35,9 @@ public class WalkToResourceState : AgentState
             agent.ChangeState(new GatherResourceState(Resource));
         }
     }
+
+    public override void EndState(Agent agent)
+    {
+        // Nothing additional to do
+    }
 }

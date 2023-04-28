@@ -3051,7 +3051,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8490135561813687349, guid: 6a603e9c1f9d6904388b45e1f3839081, type: 3}
       propertyPath: PatrolEndPosition.z
-      value: 7
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8490135561813687349, guid: 6a603e9c1f9d6904388b45e1f3839081, type: 3}
       propertyPath: PatrolStartPosition.x
@@ -3059,7 +3059,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8490135561813687349, guid: 6a603e9c1f9d6904388b45e1f3839081, type: 3}
       propertyPath: PatrolStartPosition.z
-      value: 7
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8490135561813687350, guid: 6a603e9c1f9d6904388b45e1f3839081, type: 3}
       propertyPath: m_RootOrder
@@ -3075,7 +3075,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8490135561813687350, guid: 6a603e9c1f9d6904388b45e1f3839081, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 7
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 8490135561813687350, guid: 6a603e9c1f9d6904388b45e1f3839081, type: 3}
       propertyPath: m_LocalRotation.w

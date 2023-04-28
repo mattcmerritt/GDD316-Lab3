@@ -28,4 +28,9 @@ public class WorkerReturnToHomeState : AgentState
     {
         // Do nothing, just keep running to home
     }
+
+    public override void EndState(Agent agent)
+    {
+        // Nothing additional to do
+    }
 }

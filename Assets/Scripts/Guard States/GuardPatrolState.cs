@@ -33,13 +33,24 @@ public class GuardPatrolState : AgentState
 
     public override void OnTriggerEnter(Agent agent, Collider other)
     {
-        /*
-        // If a worker walks by, follow them
-        if (other.gameObject.tag == "Worker")
+        // If a worker walks by during the day, follow them
+        DayManager dayManager = GameObject.FindObjectOfType<DayManager>();
+        if (dayManager.CheckIsDay())
         {
-
+            if (other.gameObject.tag == "Worker")
+            {
+                Worker foundWorker = other.GetComponent<Worker>();
+                if (!foundWorker.CheckIfGuarded())
+                {
+                    agent.ChangeState(new GuardFollowWorkerState(foundWorker));
+                }
+            }
         }
-        */
+    }
+
+    public override void EndState(Agent agent)
+    {
+        // Nothing additional to do
     }
 
     public IEnumerator WaitAtEndpoint(Agent agent)

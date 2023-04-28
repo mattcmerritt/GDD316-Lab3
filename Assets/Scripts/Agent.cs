@@ -21,6 +21,10 @@ public class Agent : MonoBehaviour
     {
         // End all coroutines currently running on the agent
         StopAllCoroutines();
+        if (ActiveState != null)
+        {
+            ActiveState.EndState(this);
+        }
 
         // Update state
         state.ActivateState(this);

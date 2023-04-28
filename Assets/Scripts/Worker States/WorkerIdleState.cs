@@ -26,4 +26,9 @@ public class WorkerIdleState : AgentState
     {
         // Do nothing, just stay at home
     }
+
+    public override void EndState(Agent agent)
+    {
+        // Nothing additional to do
+    }
 }
