@@ -8,6 +8,7 @@ TagManager:
   - Worker
   - Guard
   - Enemy
+  - Obstacle
   layers:
   - Default
   - TransparentFX

@@ -23,24 +23,6 @@ public class Worker : Agent
         HomePosition = transform.position;
     }
 
-    // Delegate this task to the current state
-    private void Update()
-    {
-        if (ActiveState != null)
-        {
-            ActiveState.Update(this);
-        }
-    }
-
-    // Delegate this task to the current state
-    private void OnTriggerEnter(Collider other)
-    {
-        if (ActiveState != null)
-        {
-            ActiveState.OnTriggerEnter(this, other);
-        }
-    }
-
     // Helper method to find the closest tree
     public ResourceSource FindClosestResource()
     {
