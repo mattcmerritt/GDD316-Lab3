@@ -27,7 +27,10 @@ public class Agent : MonoBehaviour
         }
 
         // Update state
-        state.ActivateState(this);
+        if (state != null)
+        {
+            state.ActivateState(this);
+        }
         ActiveState = state;
     }
 

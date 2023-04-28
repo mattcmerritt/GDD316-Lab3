@@ -46,6 +46,15 @@ public class GuardPatrolState : AgentState
                 }
             }
         }
+
+        if (other.gameObject.tag == "Enemy")
+        {
+            Enemy foundEnemy = other.GetComponent<Enemy>();
+            if (foundEnemy.GetIsAlive())
+            {
+                agent.ChangeState(new GuardFightEnemyState(foundEnemy));
+            }
+        }
     }
 
     public override void EndState(Agent agent)

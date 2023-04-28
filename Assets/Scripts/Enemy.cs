@@ -5,6 +5,9 @@ using UnityEngine;
 public class Enemy : Agent
 {
     [SerializeField] private float MapBounds;
+    [SerializeField] private Animator Animator;
+    [SerializeField] private int Health = 5;
+    [SerializeField] private bool IsAlive = true;
 
     // Start by roaming
     private void Start()
@@ -32,5 +35,33 @@ public class Enemy : Agent
         }
 
         return target;
+    }
+
+    // Helper method to access weapon swing animations
+    public Animator GetAnimator()
+    {
+        return Animator;
+    }
+
+    // Helper method to deal damage to the guard
+    public void TakeDamage()
+    {
+        Debug.Log(gameObject.name + " took damage!");
+
+        Health--;
+
+        // remove if health is depleted
+        if (Health <= 0)
+        {
+            IsAlive = false;
+            gameObject.SetActive(false);
+            ChangeState(null);
+        }
+    }
+
+    // Helper method to check if alive
+    public bool GetIsAlive()
+    {
+        return IsAlive;
     }
 }

@@ -43,7 +43,15 @@ public class GuardFollowWorkerState : AgentState
 
     public override void OnTriggerEnter(Agent agent, Collider other)
     {
-        // Do nothing, keep following worker
+        if (other.gameObject.tag == "Enemy")
+        {
+            Enemy foundEnemy = other.GetComponent<Enemy>();
+            if (foundEnemy.GetIsAlive())
+            {
+                agent.ChangeState(new GuardFightEnemyState(foundEnemy));
+            }
+        }
+        // Otherwise do nothing, keep following worker
     }
 
     public override void EndState(Agent agent)

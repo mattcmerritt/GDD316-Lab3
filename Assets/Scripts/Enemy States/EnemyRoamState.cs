@@ -33,7 +33,15 @@ public class EnemyRoamState : AgentState
 
     public override void OnTriggerEnter(Agent agent, Collider other)
     {
-        // Not implemented yet
+        // attack any conscious guards
+        if (other.gameObject.tag == "Guard")
+        {
+            Guard foundGuard = other.GetComponent<Guard>();
+            if (foundGuard.GetIsConscious())
+            {
+                agent.ChangeState(new EnemyFightGuardState(foundGuard));
+            }
+        }
     }
 
     public override void EndState(Agent agent)
