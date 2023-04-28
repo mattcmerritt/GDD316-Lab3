@@ -17,6 +17,7 @@ There are three types of agents in the scene:
 - If the resource target is not met, they will find the nearest tree and begin collecting wood from it.
 - Once at a tree, they will pick up logs of wood which can be seen on their model
 - Once they have 5 logs, they will return to home and drop off the logs, then go back to the default behavior
+- If attacked, they will freeze up for a bit, drop what they are carrying, and then return home
 
 ## Guards (dark blue)
 - By default, they patrol between 2 set points near the houses on the map
@@ -28,6 +29,9 @@ There are three types of agents in the scene:
 
 ## Enemies (red)
 - By default, they randomly roam all over the map
+- If they see a worker and are not fighting a guard, they will chase the worker and try to attack them
+- If chasing a worker that gets back home, they will go back to roaming
+- If they scare a worker, they will go back to roaming
 - If they see a guard, they will go up and attack the guard
 - If they take 3 hits, they will disappear
 - If they defeat a guard, they return to roaming

@@ -42,6 +42,15 @@ public class EnemyRoamState : AgentState
                 agent.ChangeState(new EnemyFightGuardState(foundGuard));
             }
         }
+        // scare any workers
+        if (other.gameObject.tag == "Worker")
+        {
+            Worker foundWorker = other.GetComponent<Worker>();
+            if (!foundWorker.GetIsScared())
+            {
+                agent.ChangeState(new EnemyChaseWorkerState(foundWorker));
+            }
+        }
     }
 
     public override void EndState(Agent agent)

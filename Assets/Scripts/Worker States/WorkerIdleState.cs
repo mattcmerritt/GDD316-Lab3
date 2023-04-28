@@ -18,7 +18,10 @@ public class WorkerIdleState : AgentState
         if (!resManager.HasMetResourceGoal())
         {
             ResourceSource closest = ((Worker)agent).FindClosestResource();
-            agent.ChangeState(new WalkToResourceState(closest));
+            if (closest != null)
+            {
+                agent.ChangeState(new WalkToResourceState(closest));
+            }
         }
     }
 

@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyFightGuardState : AgentState
+public class EnemyChaseWorkerState : AgentState
 {
-    private Guard Guard;
+    private Worker Worker;
     private float MinAttackDistance = 2f;
     private bool InRangeForAttack = false;
 
@@ -12,14 +12,14 @@ public class EnemyFightGuardState : AgentState
     private float RecoveryDelay = 0.75f; // 0:45
     private bool Swinging = false;
 
-    public EnemyFightGuardState(Guard guard)
+    public EnemyChaseWorkerState(Worker worker)
     {
-        Guard = guard;
+        Worker = worker;
     }
 
     public override void ActivateState(Agent agent)
     {
-        Debug.Log("ENEMY: Attacking " + Guard.name);
+        Debug.Log("ENEMY: Chasing " + Worker.name);
         // show sword
         Enemy enemy = ((Enemy)agent);
         Animator ani = enemy.GetAnimator();
@@ -29,10 +29,10 @@ public class EnemyFightGuardState : AgentState
     public override void Update(Agent agent)
     {
         // If not close to guard, close the distance
-        if (Vector3.Magnitude(Guard.transform.position - agent.transform.position) >= MinAttackDistance)
+        if (Vector3.Magnitude(Worker.transform.position - agent.transform.position) >= MinAttackDistance)
         {
             // Debug.Log("ENEMY: Engaging");
-            agent.GetNavAgent().SetDestination(Guard.transform.position);
+            agent.GetNavAgent().SetDestination(Worker.transform.position);
             agent.GetNavAgent().isStopped = false;
             InRangeForAttack = false;
         }
@@ -48,7 +48,20 @@ public class EnemyFightGuardState : AgentState
 
     public override void OnTriggerEnter(Agent agent, Collider other)
     {
-        // Not implemented yet
+        // attack any conscious guards
+        if (other.gameObject.tag == "Guard")
+        {
+            Guard foundGuard = other.GetComponent<Guard>();
+            if (foundGuard.GetIsConscious())
+            {
+                agent.ChangeState(new EnemyFightGuardState(foundGuard));
+            }
+        }
+        // do not chase workers into their houses
+        if (other.gameObject.tag == "Obstacle")
+        {
+            agent.ChangeState(new EnemyRoamState());
+        }
     }
 
     public override void EndState(Agent agent)
@@ -77,21 +90,11 @@ public class EnemyFightGuardState : AgentState
             // if the animation finishes and combat is still going, deal damage
             if (InRangeForAttack)
             {
-                Guard.TakeDamage();
-
-                // if guard gets taken out, roam again
-                if (!Guard.GetIsConscious())
-                {
-                    agent.ChangeState(new EnemyRoamState());
-                }
-                // otherwise, keep attacking
-                else
-                {
-                    ani.SetTrigger("Reset");
-                    yield return new WaitForSeconds(RecoveryDelay);
-                    Swinging = false;
-                    agent.StartCoroutine(SwingSword(agent));
-                }
+                Worker.Scare();
+                ani.SetTrigger("Reset");
+                yield return new WaitForSeconds(RecoveryDelay);
+                Swinging = false;
+                agent.ChangeState(new EnemyRoamState());
             }
             else
             {

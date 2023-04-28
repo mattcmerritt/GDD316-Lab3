@@ -7,6 +7,7 @@ public class Worker : Agent
     [SerializeField] private int HeldResources = 0, ResourceCapacity = 5;
     [SerializeField] private Vector3 HomePosition;
     [SerializeField] private bool IsGuarded = false;
+    [SerializeField] private bool IsScared = false;
 
     // Visual representation of inventory
     [SerializeField] private List<GameObject> LogsCollected;
@@ -99,5 +100,34 @@ public class Worker : Agent
     public bool CheckIfGuarded()
     {
         return IsGuarded;
+    }
+
+    // Method to determine what happens when attacked
+    public void Scare()
+    {
+        // Drops all the logs
+        HeldResources = 0;
+
+        // Hide the logs from the player
+        for (int i = 0; i < LogsCollected.Count; i++)
+        {
+            LogsCollected[i].SetActive(false);
+        }
+
+        // Freeze up
+        IsScared = true;
+        ChangeState(new ScaredState());
+    }
+
+    // Method to determine what happens when attacked
+    public bool GetIsScared()
+    {
+        return IsScared;
+    }
+
+    // Method to unscare worker
+    public void CalmDown()
+    {
+        IsScared = false;
     }
 }

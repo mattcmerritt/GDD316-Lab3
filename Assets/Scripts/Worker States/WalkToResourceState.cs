@@ -13,14 +13,22 @@ public class WalkToResourceState : AgentState
 
     public override void ActivateState(Agent agent)
     {
-        Debug.Log("WORKER: Started to walk towards " + Resource.gameObject.name);
-        agent.GetNavAgent().SetDestination(Resource.transform.position);
+        // if nothing is left, return home
+        if (Resource != null)
+        {
+            Debug.Log("WORKER: Started to walk towards " + Resource.gameObject.name);
+            agent.GetNavAgent().SetDestination(Resource.transform.position);
+        }
     }
 
     public override void Update(Agent agent)
     {
+        if (Resource == null)
+        {
+            agent.ChangeState(new WorkerReturnToHomeState());
+        }
         // if the tree has resources left, find another tree
-        if (Resource.IsDepleted())
+        if (Resource != null && Resource.IsDepleted())
         {
             ResourceSource closest = ((Worker)agent).FindClosestResource();
             agent.ChangeState(new WalkToResourceState(closest));
@@ -30,7 +38,7 @@ public class WalkToResourceState : AgentState
     public override void OnTriggerEnter(Agent agent, Collider other)
     {
         // if agent has reached its destination, start gathering
-        if (other.gameObject == Resource.gameObject)
+        if (Resource != null && other.gameObject == Resource.gameObject)
         {
             agent.ChangeState(new GatherResourceState(Resource));
         }

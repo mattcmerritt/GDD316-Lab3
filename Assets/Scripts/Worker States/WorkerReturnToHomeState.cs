@@ -8,7 +8,7 @@ public class WorkerReturnToHomeState : AgentState
 
     public override void ActivateState(Agent agent)
     {
-        Debug.Log("WORKER: Returning home");
+        Debug.Log("WORKER: Returning home now");
         agent.GetNavAgent().SetDestination(((Worker)agent).GetHomePosition());
     }
 

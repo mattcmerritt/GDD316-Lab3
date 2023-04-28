@@ -90,6 +90,12 @@ public class GuardFightEnemyState : AgentState
                     agent.StartCoroutine(SwingSword(agent));
                 }
             }
+            else
+            {
+                ani.SetTrigger("Reset");
+                yield return new WaitForSeconds(RecoveryDelay);
+                Swinging = false;
+            }
         }
     }
 }
