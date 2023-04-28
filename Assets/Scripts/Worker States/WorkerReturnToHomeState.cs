@@ -20,8 +20,7 @@ public class WorkerReturnToHomeState : AgentState
         if (Vector3.Magnitude(home - agent.transform.position) < MinDistanceFromHome)
         {
             ((Worker)agent).DropResources();
-            ResourceSource closest = ((Worker)agent).FindClosestResource();
-            agent.ChangeState(new WalkToResourceState(closest));
+            agent.ChangeState(new WorkerIdleState());
         }
     }
 

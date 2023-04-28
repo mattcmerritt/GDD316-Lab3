@@ -20,7 +20,12 @@ public class GatherResourceState : AgentState
 
     public override void Update(Agent agent)
     {
-        // agent.GetNavAgent().SetDestination(Resource.transform.position);
+        // if the tree has resources left, find another tree
+        if (Resource.IsDepleted())
+        {
+            ResourceSource closest = ((Worker)agent).FindClosestResource();
+            agent.ChangeState(new WalkToResourceState(closest));
+        }
     }
 
     public override void OnTriggerEnter(Agent agent, Collider other)
@@ -43,7 +48,9 @@ public class GatherResourceState : AgentState
         {
             // wait
             yield return new WaitForSeconds(CollectionDelay);
+
             // add to resource total
+            Resource.TakeResource();
             worker.PickUpResource();
             // keep gathering
             agent.StartCoroutine(CollectResource(agent));

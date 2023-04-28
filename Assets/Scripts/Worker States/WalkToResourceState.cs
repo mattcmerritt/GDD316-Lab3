@@ -19,7 +19,12 @@ public class WalkToResourceState : AgentState
 
     public override void Update(Agent agent)
     {
-        // agent.GetNavAgent().SetDestination(Resource.transform.position);
+        // if the tree has resources left, find another tree
+        if (Resource.IsDepleted())
+        {
+            ResourceSource closest = ((Worker)agent).FindClosestResource();
+            agent.ChangeState(new WalkToResourceState(closest));
+        }
     }
 
     public override void OnTriggerEnter(Agent agent, Collider other)

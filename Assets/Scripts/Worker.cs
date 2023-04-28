@@ -7,6 +7,9 @@ public class Worker : Agent
     [SerializeField] private int HeldResources = 0, ResourceCapacity = 5;
     [SerializeField] private Vector3 HomePosition;
 
+    // Visual representation of inventory
+    [SerializeField] private List<GameObject> LogsCollected;
+
     // Start by picking the closest tree, and gathering from there
     private void Start()
     {
@@ -67,12 +70,28 @@ public class Worker : Agent
     public void PickUpResource()
     {
         HeldResources += 1;
+
+        // Show the logs to the player
+        for (int i = 0; i < HeldResources; i++)
+        {
+            LogsCollected[i].SetActive(true);
+        }
     }
 
     // Helper method to remove resources from the worker's hands
     public void DropResources()
     {
+        // Adding resources to totals
+        ResourceManager resManager = FindObjectOfType<ResourceManager>();
+        resManager.AddResources(HeldResources);
+
         HeldResources = 0;
+
+        // Hide the logs from the player
+        for (int i = 0; i < LogsCollected.Count; i++)
+        {
+            LogsCollected[i].SetActive(false);
+        }
     }
 
     // Helper method to retrieve home position
