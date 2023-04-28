@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WalkToResourceState : AgentState
 {
-    [SerializeField] private ResourceSource Resource;
+    private ResourceSource Resource;
 
     public WalkToResourceState(ResourceSource resource)
     {
@@ -20,5 +20,14 @@ public class WalkToResourceState : AgentState
     public override void Update(Agent agent)
     {
         // agent.GetNavAgent().SetDestination(Resource.transform.position);
+    }
+
+    public override void OnTriggerEnter(Agent agent, Collider other)
+    {
+        // if agent has reached its destination, start gathering
+        if (other.gameObject == Resource.gameObject)
+        {
+            agent.ChangeState(new GatherResourceState(Resource));
+        }
     }
 }

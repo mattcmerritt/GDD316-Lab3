@@ -8,9 +8,22 @@ using UnityEngine.AI;
 public class Agent : MonoBehaviour
 {
     [SerializeField] private NavMeshAgent NavAgent;
+    protected AgentState ActiveState;
 
+    // Helper method to retrieve the NavAgent component
     public NavMeshAgent GetNavAgent()
     {
         return NavAgent;
+    }
+
+    // Method to swap from one state to another
+    public void ChangeState(AgentState state)
+    {
+        // End all coroutines currently running on the agent
+        StopAllCoroutines();
+
+        // Update state
+        state.ActivateState(this);
+        ActiveState = state;
     }
 }

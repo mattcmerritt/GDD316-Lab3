@@ -6,4 +6,5 @@ public abstract class AgentState
 {
     public abstract void ActivateState(Agent agent);
     public abstract void Update(Agent agent);
+    public abstract void OnTriggerEnter(Agent agent, Collider other);
 }
