@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyRoamState : AgentState
 {
     private float PauseAtEndpoint = 1;
-    private float MinDistanceFromDestination = 0.25f;
+    private float MinDistanceFromDestination = 1f;
     private bool Waiting = false;
     private Vector3 Destination;
 

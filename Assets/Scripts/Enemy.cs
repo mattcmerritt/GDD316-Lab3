@@ -6,7 +6,7 @@ public class Enemy : Agent
 {
     [SerializeField] private float MapBounds;
     [SerializeField] private Animator Animator;
-    [SerializeField] private int MaximumHealth = 5, Health = 5;
+    [SerializeField] private int Health = 5;
     [SerializeField] private bool IsAlive = true;
     [SerializeField] private Vector3 StartLocation;
 
@@ -14,12 +14,6 @@ public class Enemy : Agent
     private void Start()
     {
         StartLocation = transform.position;
-        ChangeState(new EnemyRoamState());
-    }
-
-    public void Reset()
-    {
-        transform.position = StartLocation;
         ChangeState(new EnemyRoamState());
     }
 
@@ -71,5 +65,11 @@ public class Enemy : Agent
     public bool GetIsAlive()
     {
         return IsAlive;
+    }
+
+    // Helper for respawn
+    public Vector3 GetStartLocation()
+    {
+        return StartLocation;
     }
 }

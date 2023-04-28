@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyRespawner : MonoBehaviour
 {
     [SerializeField] private List<Enemy> Enemies;
+    [SerializeField] private GameObject EnemyPrefab;
 
     public void Update()
     {
@@ -27,10 +28,13 @@ public class EnemyRespawner : MonoBehaviour
     {
         yield return new WaitForSeconds(5f);
 
+        List<Enemy> newEnemies = new List<Enemy>();
         foreach (Enemy e in Enemies)
         {
-            e.gameObject.SetActive(true);
-            e.Reset();
+            Vector3 start = e.GetStartLocation();
+            Instantiate(EnemyPrefab, start, Quaternion.identity);
         }
+
+        Enemies = newEnemies;
     }
 }
